@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <table class="table table-striped" style="width: 200px;">
+        <tr>
+            <th>Cars</th>
+        </tr>
+        {% for car in Cars %}
+            {% if user.id == car.user_id %} 
+                <tr>  
+                    <td id="car1"><a href="{% url 'car_detail' car.car_id%}">{{car.car_id}}</a></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table> 
+
+
+{% endblock %}

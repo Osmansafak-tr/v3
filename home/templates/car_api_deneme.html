@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Api</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <style>
+        #map{
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Map</h1>
+    <div id="map"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    
+
+    <script>
+        function initMap(markers){
+            var options = {
+                zoom : 10,
+                center : {lat:59.3328,lng:18.0645}
+            }
+
+        var map = new google.maps.Map(document.getElementById('map'),options);
+
+        function addMarker(coords,id){
+            var marker = new google.maps.Marker({
+                position : coords,
+                map : map
+            });
+            if(id==52 || id==104){
+                marker.setIcon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png")
+            }
+        };
+
+        {% for car in Cars %}
+            for(var key in markers)
+            {
+                key_id = parseInt(markers[key].Araba)
+                    
+                if("{{car.car_id}}"==key_id){
+                    eski_id = key_id;
+                    console.log(key_id);
+                    console.log(markers[key].X);
+                    var enlem = parseFloat(markers[key].X);
+                    var boylam = parseFloat(markers[key].Y);
+                    addMarker({lat: enlem ,lng: boylam},key_id);
+                }       
+            }
+        {% endfor %}
+        
+        }
+
+        $(document).ready(function(){
+            setInterval(function(){
+                $.ajax({
+                    type:'GET',
+                    url: "{% url 'test' %}",
+                    success: function(response){
+                        initMap(response.markers);
+                    },
+                    error: function(response){
+                        alert("Bir Hata Oluştu");
+                    }
+                });
+            },3000);
+        });
+    </script>
+    
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEQ0K21PObG9une7OB5AoEEmFZyfMWZoc&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+</body>
+</html>
+{% endblock %}
