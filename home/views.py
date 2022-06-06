@@ -10,7 +10,7 @@ def homePage(request):
     return render(request,'home.html',{'Cars':object_list})
 
 def carDetailView(request,pk):
-    cluster = pymongo.MongoClient("mongodb+srv://osman:567890123@cluster0.wad24.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    cluster = pymongo.MongoClient("<YOUR MONGODB CONNECTİON STRİNG>")
     db = cluster["db_proje"]
     mycol = db["marker"]
     all_records = mycol.find().sort('_id',-1)
@@ -29,7 +29,7 @@ def ajax_deneme(request):
     return render(request,'car_api_deneme.html',context)
 
 def testView(request):
-    cluster = pymongo.MongoClient("mongodb+srv://osman:567890123@cluster0.wad24.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+    cluster = pymongo.MongoClient("<YOUR MONGODB CONNECTİON STRİNG>")
     db = cluster["db_proje"]
     mycol = db["marker"]
     all_records1 = mycol.find({'Araba':'47'},{'_id': False}).sort('_id',-1).limit(30)

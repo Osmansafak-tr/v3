@@ -1,6 +1,6 @@
 import pymongo
 
-cluster = pymongo.MongoClient("mongodb+srv://osman:567890123@cluster0.wad24.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+cluster = pymongo.MongoClient("<YOUR MONGODB CONNECTİON STRİNG>")
 db = cluster["db_proje"]
 mycol = db["marker"]
 

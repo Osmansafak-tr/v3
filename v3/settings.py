@@ -84,8 +84,8 @@ DATABASES = {
         'NAME': 'django_mapapi',
         'HOST':'localhost',
         'PORT':'3306',
-        'USER':'root',
-        'PASSWORD':'12345',
+        'USER':'<USERNAME>',
+        'PASSWORD':'<PASSWORD>',
     }
 }
 
